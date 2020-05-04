@@ -11,5 +11,6 @@
     * name it **iris.key** to make it work with the docker build
 
 ## build the solution 
-
+````sh
 docker build .
+````
