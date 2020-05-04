@@ -70,22 +70,3 @@ COPY irisHealth.sh /irisHealth.sh
 
 ENTRYPOINT  ["/iris-main"]
 
-# run via:
-# docker run -d -p 57772:57772 -p 1972:1972 -e ROOT_PASS="linux" --name HSTEST hs:18.01 -i=HEALTHSHARE
-#
-# more options & explanations
-# $ docker run -d            // detached in the background; accessed only via network
-# --privileged                  // only for kernel =<3.16 like CentOS 6 & 7; it gives us root privileges to tune the kernel etc.
-# -h <host_name>            // you can specify a host name
-# -p 57772:57772             // TCP socket port mapping as host_external:container_internal
-# -p 0.0.0.0:2222:22         // this means allow 2222 to be accesses from any ip on this host and map it to port 22 in the container
-# -e ROOT_PASS="linux"        // -e for env var; tutum/centos extension for root pwd definition
-# <docker_image_id>             // see docker images to fetch the right name & tag or id
-#                             // after the Docker image id, we can specify all the flags supported by 'ccontainermain'
-#                             // see this page for more info https://github.com/zrml/ccontainermain
-# -i=HealthShare                    // this is the Cachè instance name
-# -xstart=/run.sh                    // eXecute another service at startup time
-#                            // run.sh starts sshd (part of tutum centos container)
-#                            // for more info see https://docs.docker.com/reference/run/
-
-

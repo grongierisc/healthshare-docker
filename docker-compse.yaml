@@ -1,0 +1,23 @@
+version: "3.4"
+
+services:
+  ucr:
+    image: hs:2020.1
+    container_name: ucr
+    hostname: ucr
+    build:
+      context: .
+      # directory of dockerfile
+    environment:
+      # For persistencie
+      #https://docs.intersystems.com/irislatest/csp/docbook/Doc.View.cls?KEY=ADOCK#ADOCK_iris_durable
+      #ISC_DATA_DIRECTORY: /external/IRISHEALTH-CC
+    volumes:
+       - .:/tmp
+    ports:
+      # Superserver
+      - "51773:51773"
+      # Webserver/management portal http://localhost:52773/csp/sys/%25CSP.Portal.Home.zen
+      - "52773:52773"
+      # HL7 inbound adapter
+      - "62115:62115"

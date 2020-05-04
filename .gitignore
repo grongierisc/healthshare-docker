@@ -1,3 +1,4 @@
-**.key
-distrib/*
+keys/*key
+distrib/H*
 .DS_Store
+.vscode/settings.json
