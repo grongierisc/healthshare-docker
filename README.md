@@ -11,6 +11,15 @@
     * name it **iris.key** to make it work with the docker build
 
 ## build the solution 
+
+If experimental is enable 
+
 ````sh
-docker build .
+docker build --squash . -t hs:2020.1
+````
+
+else 
+
+````sh
+docker build . -t hs:2020.1
 ````
