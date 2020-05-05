@@ -1,23 +1,17 @@
+#--------------------------------------------------------------------
 # This Docker manifest file builds a container with:
-# - HealthShare 2020.1 for RHEL x64 and 
-# - it handles container PID 1 via ccontainermain which offers various flags
-#
-# build the new image with e.g. 
-# $ docker build --force-rm --no-cache -t hs:2020.01 .
-#--
+# - HealthShare 2020.1 for RHEL x64 
+# Build final application
+# Use docker build --build-arg HS_DIST=HealthShare_UnifiedCareRecord_Insight_PatientIndex-2020.1-7015-0-lnxrhx64.tar.gz --build-arg HS_KEY=iris.key --squash -t ucr:2020.1 .
+#--------------------------------------------------------------------
 
-# pull from this repository
-# note that if you don't have the distribution you're after it will be automatically
-# downloaded from Docker central hub repository (you'll have to create a user there)
+FROM centos:latest 
 
-FROM centos:latest
-
-# setup variables for the HealthShare 
-ENV TMP_INSTALL_DIR=/distrib
-ENV HS_DIST="HealthShare_UnifiedCareRecord_Insight_PatientIndex-2020.1-7015-0-lnxrhx64.tar.gz"
+# build args
+ARG HS_DIST
+ARG HS_KEY
 
 # vars for iris
- 	
 ENV ISC_PACKAGE_IRISGROUP=irisuser 
 ENV ISC_PACKAGE_IRISUSER=irisuser 
 ENV ISC_PACKAGE_MGRGROUP=irisowner 
@@ -35,6 +29,13 @@ ENV ISC_PACKAGE_USER_PASSWORD="SYS"
 ENV ISC_PACKAGE_CSPSYSTEM_PASSWORD="SYS"
 ENV WEBTERMINAL_DIST="WebTerminal-v4.9.3.xml"
 
+# update OS + dependencies & run HealthShare silent install
+RUN yum -y update \
+    && yum -y install which tar bzip2 hostname net-tools wget java \
+    && yum -y clean all 
+
+# setup variables for the HealthShare 
+ENV TMP_INSTALL_DIR=/distrib
 
 # HealthShare distribution_
 # set-up and install HealthShare from distrib_tmp dir
@@ -43,16 +44,11 @@ WORKDIR ${TMP_INSTALL_DIR}
 COPY distrib/${HS_DIST} ${TMP_INSTALL_DIR}
 COPY ${WEBTERMINAL_DIST} ${TMP_INSTALL_DIR}
 
-
-# update OS + dependencies & run HealthShare silent install
-RUN yum -y update \
-    && yum -y install which tar bzip2 hostname net-tools wget java \
-    && yum -y clean all 
-
+# run installer
 RUN tar xzvf ${HS_DIST} 
 RUN ./HealthShare*/irisinstall_silent
 RUN iris stop $ISC_PACKAGE_INSTANCENAME quietly 
-COPY keys/iris.key $ISC_PACKAGE_INSTALLDIR/mgr/iris.key
+COPY keys/${HS_KEY} $ISC_PACKAGE_INSTALLDIR/mgr/iris.key
 
 RUN iris start $ISC_PACKAGE_INSTANCENAME \
     && printf "SuperUser\n${ISC_PACKAGE_USER_PASSWORD}\n" \
@@ -66,7 +62,6 @@ EXPOSE 56772 56773 51773 52773 53773 54773 1972 22 80 443
 
 COPY iris-main /iris-main
 COPY irisHealth.sh /irisHealth.sh
-
 
 ENTRYPOINT  ["/iris-main"]
 

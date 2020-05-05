@@ -1,0 +1,53 @@
+version: "3.4"
+
+services:
+  ucr:
+    image: ucr:2020.1
+    container_name: ucr
+    hostname: ucr
+    build:
+      context: .
+      args:
+        HS_DIST: HealthShare_UnifiedCareRecord_Insight_PatientIndex-2020.1-7015-0-lnxrhx64.tar.gz
+        HS_KEY: ucr.key
+    volumes:
+       - .:/tmp
+    ports:
+      # Superserver
+      - "51773:51773"
+      # Webserver/management portal http://localhost:52773/csp/sys/%25CSP.Portal.Home.zen
+      - "52773:52773"
+      # HL7 inbound adapter
+      - "62115:62115"
+  clinicalviewer:
+    image: clinicalviewer:2020.1
+    container_name: clinicalviewer
+    hostname: clinicalviewer
+    build:
+      context: .
+      args:
+        HS_DIST: HealthShare_ClinicalViewer-2020.1-7161-0-lnxrhx64.tar.gz
+        HS_KEY: clinicalviewer.key
+    volumes:
+       - .:/tmp
+    ports:
+      # Superserver
+      - "41773:51773"
+      # Webserver/management portal http://localhost:52773/csp/sys/%25CSP.Portal.Home.zen
+      - "42773:52773"
+  personalcommunity:
+    image: personalcommunity:2020.1
+    container_name: personalcommunity
+    hostname: personalcommunity
+    build:
+      context: .
+      args:
+        HS_DIST: HealthShare_PersonalCommunity-2020.1-7115-0-lnxrhx64.tar.gz
+        HS_KEY: personalcommunity.key
+    volumes:
+        - .:/tmp
+    ports:
+      # Superserver
+      - "31773:51773"
+      # Webserver/management portal http://localhost:52773/csp/sys/%25CSP.Portal.Home.zen
+      - "32773:52773"

@@ -1608,7 +1608,7 @@ This method is invoked when a class is compiled.</Description>
     set cspProperties("Description") = "An application representing the open socket for /terminal application."
     set cspProperties("DispatchClass") = ""
 
-    set requiredRole = $case(..#iscProductVersion >= 4, 1: "%DB_IRISSYS", : "%DB_CACHESYS")
+    set requiredRole = $case(..#iscProductVersion >= 3, 1: "%DB_IRISSYS", : "%DB_CACHESYS")
     set roles = ..GetDBRole(dbdir)
     set extractedRoles = $case($get(roles) '= "", 1: ":" _ roles, : "")
     set cspProperties("MatchRoles") = ":" _ $case(
