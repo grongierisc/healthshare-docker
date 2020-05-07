@@ -1,6 +1,6 @@
 # healthshare-docker
 
-## defintion of directory
+## Defintion of directory
 
 * distrib
     * where you put the tar.gz distribution package on redhat
@@ -10,7 +10,7 @@
     * where you put your license key
     * name it **iris.key** to make it work with the docker build
 
-## build the solution 
+## Build the solution 
 
 If experimental is enable 
 
@@ -24,13 +24,13 @@ else
 docker build --build-arg HS_DIST=HealthShare_UnifiedCareRecord_Insight_PatientIndex-2020.1-7015-0-lnxrhx64.tar.gz --build-arg HS_KEY=iris.key -t ucr:2020.1 .
 ````
 
-## build all solutions
+## Build all
 
 ````sh
 docker-compose build
 ````
 
-## setup 
+## Setup 
 
 ### UCR demo :
 
@@ -52,7 +52,7 @@ zn "HSREGISTRY"
 do ##class(HS.Util.Installer.Kit.HSPI).AddHub()
 ````
 
-### ClinicaltViewer
+### ClinicalViewer
 
 Open WebTerminal :
 
@@ -73,7 +73,7 @@ For Linux :
 * "RegistryHost" = ucr
 * RegistryPort = 52773
 
-### add data
+### Add data
 
 If you run ##class(HS.Util.Installer).InstallDemo() the system will
 now create 4 gateways, HSREGISTRY, HSACCESS, HSEDGE1, and HSEDGE2.
@@ -175,7 +175,7 @@ A. Steve Burns
    
 B. Marla Gonzalez, as described above in HL7 scenario 4
 
-Push
+### Push
 
 Sample push subscriptions may also be included.  Notifications of all
 transactions in all scenarios will be sent to a Sample receiving system 
@@ -197,7 +197,7 @@ Additional subscription policies are also loaded for the receiving
 system as well as for individual and all clinicians.  These can be used for 
 demonstrating additional system capabilities.
 
-XDR.Direct
+### XDR.Direct
 
 Running InstallBusDemo() will create a service to receive direct emails into the
 clinical message center in the HSEDGE1 namespace, HS.Direct.SMTP.Services.
