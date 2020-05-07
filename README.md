@@ -30,7 +30,9 @@ docker build --build-arg HS_DIST=HealthShare_UnifiedCareRecord_Insight_PatientIn
 docker-compose build
 ````
 
-## setup UCR demo :
+## setup 
+
+### UCR demo :
 
 Open WebTerminal :
 
@@ -40,6 +42,36 @@ http://localhost:52773/terminal/
 zn "HSLIB"
 do ##class(HS.Util.Installer).InstallDemo()
 ````
+
+### MPI Lite
+
+MPI Lite is the MPI embeded in the registry not in a different namespace.
+
+````objectscript
+zn "HSREGISTRY"
+do ##class(HS.Util.Installer.Kit.HSPI).AddHub()
+````
+
+### ClinicaltViewer
+
+Open WebTerminal :
+
+http://localhost:42773/terminal/
+
+````objectscript
+zn "VIEWERLIB"
+ do ##class(Viewer.Util.Installer).InstallCVDemo("RegistryHost", RegistryPort ) 
+````
+
+For OSX and Windows :
+
+* "RegistryHost" = host.docker.internal
+* RegistryPort = 52773
+
+For Linux :
+
+* "RegistryHost" = ucr
+* RegistryPort = 52773
 
 ### add data
 
