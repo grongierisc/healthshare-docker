@@ -60,7 +60,7 @@ http://localhost:42773/terminal/
 
 ````objectscript
 zn "VIEWERLIB"
- do ##class(Viewer.Util.Installer).InstallCVDemo("RegistryHost", RegistryPort ) 
+do ##class(Viewer.Util.Installer).InstallCVDemo("RegistryHost", RegistryPort ) 
 ````
 
 For OSX and Windows :
