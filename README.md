@@ -38,9 +38,50 @@ Open WebTerminal :
 
 http://localhost:52773/terminal/
 
+#### Automatique
 ````objectscript
 zn "HSLIB"
 do ##class(HS.Util.Installer).InstallDemo()
+````
+#### Manual 
+
+Example :
+
+* Install Bus? No//
+* Install Patient Index? No//Yes
+* Install Usage Dashboards? No//Yes
+* Install XDSb Stable/OnDemand Document Push? No//
+* Install XDSb Registry and Repository? No//
+* Install DSUB Broker? No//
+* Install PIX / PDQ? No//
+* Install XDR Direct Recipient Service? No//
+* Install Analytics Integration? No//Yes
+* Add Trace Operations (debugging)? No//Yes
+* Add Push Demo Data? No//Yes
+* Set up Immunization, Surveillance, and Lab Reporting Demo? No//
+* Set up eHealth Global demo? No//
+* Install X12 Integration? No//
+* Set the Registry as the Audit Production? Yes//
+* Continue installation ?Yes//
+````objectscript
+zn "HSLIB"
+do ##class(HS.Util.Installer).Install()
+
+Yes
+Yes
+
+
+
+
+
+Yes
+Yes
+Yes
+
+Yes
+
+
+
 ````
 
 ### MPI Lite
