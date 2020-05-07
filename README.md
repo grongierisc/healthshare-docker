@@ -30,8 +30,15 @@ docker build --build-arg HS_DIST=HealthShare_UnifiedCareRecord_Insight_PatientIn
 docker-compose build
 ````
 
-## Setup 
+## Setup
 
+### /!\ For OSX and Windows /!\
+
+Configure hostname of dockers as :
+````objectscript
+zn "%SYS"
+Set ^%SYS("HealthShare","NetworkHostName")="host.docker.internal"
+````
 ### UCR demo :
 
 Open WebTerminal :
@@ -116,6 +123,13 @@ For Linux :
 
 ### Add data
 
+#### Custom
+````sh
+cp /tmp/misc/hl7/CommunityHospital_Patients_500.dat /usr/healthshare/Data/HSEDGE1/HL7In
+cp /tmp/misc/hl7/MercySouth_Patients_500.dat /usr/healthshare/Data/HSEDGE2/HL7In
+````
+
+#### Embeded
 If you run ##class(HS.Util.Installer).InstallDemo() the system will
 now create 4 gateways, HSREGISTRY, HSACCESS, HSEDGE1, and HSEDGE2.
 HSEDGE1 and HSEDGE2 will accept HL7 v2.5 messages or SDA XML messages.
