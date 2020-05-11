@@ -15,13 +15,23 @@
 If experimental is enable 
 
 ````sh
-docker build --build-arg HS_DIST=HealthShare_UnifiedCareRecord_Insight_PatientIndex-2020.1-7015-0-lnxrhx64.tar.gz --build-arg HS_KEY=iris.key --squash -t ucr:2020.1 .
+docker build \
+--build-arg HS_DIST=HealthShare_UnifiedCareRecord_Insight_PatientIndex-2020.1-7015-0-lnxrhx64.tar.gz \
+--build-arg HS_KEY=ucr.key \
+--build-arg HS_SUPERSERVER_PORT=51773 \
+--build-arg HS_WEBSERVER_PORT=52773  \
+--squash -t ucr:2020.1 .
 ````
 
 else 
 
 ````sh
-docker build --build-arg HS_DIST=HealthShare_UnifiedCareRecord_Insight_PatientIndex-2020.1-7015-0-lnxrhx64.tar.gz --build-arg HS_KEY=iris.key -t ucr:2020.1 .
+docker build \
+--build-arg HS_DIST=HealthShare_UnifiedCareRecord_Insight_PatientIndex-2020.1-7015-0-lnxrhx64.tar.gz \
+--build-arg HS_KEY=ucr.key \
+--build-arg HS_SUPERSERVER_PORT=51773 \
+--build-arg HS_WEBSERVER_PORT=52773  \
+-t ucr:2020.1 .
 ````
 
 ## Build all
@@ -30,8 +40,15 @@ docker build --build-arg HS_DIST=HealthShare_UnifiedCareRecord_Insight_PatientIn
 docker-compose build
 ````
 
-## Setup 
+## Setup
 
+### /!\ For OSX and Windows /!\
+
+Configure hostname of dockers as :
+````objectscript
+zn "%SYS"
+Set ^%SYS("HealthShare","NetworkHostName")="host.docker.internal"
+````
 ### UCR demo :
 
 Open WebTerminal :
@@ -91,31 +108,18 @@ MPI Lite is the MPI embeded in the registry not in a different namespace.
 ````objectscript
 zn "HSREGISTRY"
 do ##class(HS.Util.Installer.Kit.HSPI).AddHub()
+zw ##class(HS.Director).Stop()
+zw ##class(HS.Director).Start()
 ````
-
-### ClinicalViewer
-
-Open WebTerminal :
-
-http://localhost:42773/terminal/
-
-````objectscript
-zn "VIEWERLIB"
-do ##class(Viewer.Util.Installer).InstallCVDemo("RegistryHost", RegistryPort ) 
-````
-
-For OSX and Windows :
-
-* "RegistryHost" = host.docker.internal
-* RegistryPort = 52773
-
-For Linux :
-
-* "RegistryHost" = ucr
-* RegistryPort = 52773
-
 ### Add data
 
+#### Custom
+````sh
+cp /tmp/misc/hl7/CommunityHospital_Patients_500.dat /usr/healthshare/Data/HSEDGE1/HL7In
+cp /tmp/misc/hl7/MercySouth_Patients_500.dat /usr/healthshare/Data/HSEDGE2/HL7In
+````
+
+#### Embeded
 If you run ##class(HS.Util.Installer).InstallDemo() the system will
 now create 4 gateways, HSREGISTRY, HSACCESS, HSEDGE1, and HSEDGE2.
 HSEDGE1 and HSEDGE2 will accept HL7 v2.5 messages or SDA XML messages.
@@ -142,6 +146,56 @@ into /usr/healthshare/Data/HSEDGE1\X12In (or HSEDGE2)
 ````sh
 cp /usr/healthshare/Data/*.x12 /usr/healthshare/Data/HSEDGE1/X12In
 ````
+## ClinicalViewer
+
+Open WebTerminal :
+
+http://localhost:42773/terminal/
+
+````objectscript
+zn "VIEWERLIB"
+do ##class(Viewer.Util.Installer).InstallCVDemo("RegistryHost", RegistryPort ) 
+````
+
+For OSX and Windows :
+
+* "RegistryHost" = host.docker.internal
+* RegistryPort = 52773
+
+````objectscript
+zn "VIEWERLIB"
+do ##class(Viewer.Util.Installer).InstallCVDemo("host.docker.internal", 52773 ) 
+````
+
+For Linux :
+
+* "RegistryHost" = ucr
+* RegistryPort = 52773
+
+````objectscript
+zn "VIEWERLIB"
+do ##class(Viewer.Util.Installer).InstallCVDemo("ucr", 52773 ) 
+````
+
+## Personal community
+
+### Reset Data 
+
+````objectscript
+zn "HSPC"
+Set status=##class(HSPortal.Utils).%ResetPatientData()
+````
+
+### Setup Default Demo
+
+````objectscript
+zn "%SYS"
+set status = ##class(%ZHSPortal.Utils).%CreatePersonalCommunityDemoNamespace("TEMPNS","MYPORTAL",,,"host.docker.internal","52773","HSREGISTRY",
+"dev@example.com","mail.example.com",,,"MYPORTAL_PIXSERVICE","MYPORTAL_PIXDEVICE","2.999.4.5.777","/tmp")
+write status
+````
+
+## Annexe
 
 ### HL7Scenarios creates HL7 messages for 5 patients:
 
