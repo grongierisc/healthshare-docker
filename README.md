@@ -264,3 +264,21 @@ To demonstrate this, after doing the above changes, send an email to two address
 isc.direct.demo@gmail.com and hsdemo0.direct@gmail.com.  Attach a C-CDA document.
 
 Feedback, comments and notification of errors and suggestions are welcome. 
+
+## Personal community
+
+### Reset Data 
+
+````objectscript
+zn "HSPC"
+Set status=##class(HSPortal.Utils).%ResetPatientData()
+````
+
+### Setup Default Demo
+
+````objectscript
+zn "%SYS"
+set status = ##class(%ZHSPortal.Utils).%CreatePersonalCommunityDemoNamespace("TEMPNS","MYPORTAL",,,"host.docker.internal","52773","HSREGISTRY",
+"dev@example.com","mail.example.com",,,"MYPORTAL_PIXSERVICE","MYPORTAL_PIXDEVICE","2.999.4.5.777","/tmp")
+write status
+````
