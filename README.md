@@ -99,28 +99,6 @@ MPI Lite is the MPI embeded in the registry not in a different namespace.
 zn "HSREGISTRY"
 do ##class(HS.Util.Installer.Kit.HSPI).AddHub()
 ````
-
-### ClinicalViewer
-
-Open WebTerminal :
-
-http://localhost:42773/terminal/
-
-````objectscript
-zn "VIEWERLIB"
-do ##class(Viewer.Util.Installer).InstallCVDemo("RegistryHost", RegistryPort ) 
-````
-
-For OSX and Windows :
-
-* "RegistryHost" = host.docker.internal
-* RegistryPort = 52773
-
-For Linux :
-
-* "RegistryHost" = ucr
-* RegistryPort = 52773
-
 ### Add data
 
 #### Custom
@@ -156,6 +134,46 @@ into /usr/healthshare/Data/HSEDGE1\X12In (or HSEDGE2)
 ````sh
 cp /usr/healthshare/Data/*.x12 /usr/healthshare/Data/HSEDGE1/X12In
 ````
+## ClinicalViewer
+
+Open WebTerminal :
+
+http://localhost:42773/terminal/
+
+````objectscript
+zn "VIEWERLIB"
+do ##class(Viewer.Util.Installer).InstallCVDemo("RegistryHost", RegistryPort ) 
+````
+
+For OSX and Windows :
+
+* "RegistryHost" = host.docker.internal
+* RegistryPort = 52773
+
+For Linux :
+
+* "RegistryHost" = ucr
+* RegistryPort = 52773
+
+## Personal community
+
+### Reset Data 
+
+````objectscript
+zn "HSPC"
+Set status=##class(HSPortal.Utils).%ResetPatientData()
+````
+
+### Setup Default Demo
+
+````objectscript
+zn "%SYS"
+set status = ##class(%ZHSPortal.Utils).%CreatePersonalCommunityDemoNamespace("TEMPNS","MYPORTAL",,,"host.docker.internal","52773","HSREGISTRY",
+"dev@example.com","mail.example.com",,,"MYPORTAL_PIXSERVICE","MYPORTAL_PIXDEVICE","2.999.4.5.777","/tmp")
+write status
+````
+
+## Annexe
 
 ### HL7Scenarios creates HL7 messages for 5 patients:
 
@@ -264,21 +282,3 @@ To demonstrate this, after doing the above changes, send an email to two address
 isc.direct.demo@gmail.com and hsdemo0.direct@gmail.com.  Attach a C-CDA document.
 
 Feedback, comments and notification of errors and suggestions are welcome. 
-
-## Personal community
-
-### Reset Data 
-
-````objectscript
-zn "HSPC"
-Set status=##class(HSPortal.Utils).%ResetPatientData()
-````
-
-### Setup Default Demo
-
-````objectscript
-zn "%SYS"
-set status = ##class(%ZHSPortal.Utils).%CreatePersonalCommunityDemoNamespace("TEMPNS","MYPORTAL",,,"host.docker.internal","52773","HSREGISTRY",
-"dev@example.com","mail.example.com",,,"MYPORTAL_PIXSERVICE","MYPORTAL_PIXDEVICE","2.999.4.5.777","/tmp")
-write status
-````
