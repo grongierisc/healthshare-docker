@@ -2,7 +2,7 @@ version: "3.4"
 
 services:
   ucr:
-    image: ucr:2020.1
+    image: docker.iscinternal.com/grongier/ucr:2020.1
     container_name: ucr
     hostname: ucr
     build:
@@ -22,7 +22,7 @@ services:
       # HL7 inbound adapter
       - "62115:62115"
   clinicalviewer:
-    image: clinicalviewer:2020.1
+    image: docker.iscinternal.com/grongier/clinicalviewer:2020.1
     container_name: clinicalviewer
     hostname: clinicalviewer
     build:
@@ -40,7 +40,7 @@ services:
       # Webserver/management portal http://localhost:52773/csp/sys/%25CSP.Portal.Home.zen
       - "42773:42773"
   personalcommunity:
-    image: personalcommunity:2020.1
+    image: docker.iscinternal.com/grongier/personalcommunity:2020.1
     container_name: personalcommunity
     hostname: personalcommunity
     build:
