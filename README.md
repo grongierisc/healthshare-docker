@@ -150,10 +150,20 @@ For OSX and Windows :
 * "RegistryHost" = host.docker.internal
 * RegistryPort = 52773
 
+````objectscript
+zn "VIEWERLIB"
+do ##class(Viewer.Util.Installer).InstallCVDemo("host.docker.internal", 52773 ) 
+````
+
 For Linux :
 
 * "RegistryHost" = ucr
 * RegistryPort = 52773
+
+````objectscript
+zn "VIEWERLIB"
+do ##class(Viewer.Util.Installer).InstallCVDemo("ucr", 52773 ) 
+````
 
 ## Personal community
 
