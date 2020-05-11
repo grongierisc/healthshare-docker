@@ -98,6 +98,7 @@ MPI Lite is the MPI embeded in the registry not in a different namespace.
 ````objectscript
 zn "HSREGISTRY"
 do ##class(HS.Util.Installer.Kit.HSPI).AddHub()
+zw ##class(HS.Director).Restart()
 ````
 ### Add data
 
