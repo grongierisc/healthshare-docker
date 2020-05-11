@@ -15,13 +15,23 @@
 If experimental is enable 
 
 ````sh
-docker build --build-arg HS_DIST=HealthShare_UnifiedCareRecord_Insight_PatientIndex-2020.1-7015-0-lnxrhx64.tar.gz --build-arg HS_KEY=iris.key --squash -t ucr:2020.1 .
+docker build \
+--build-arg HS_DIST=HealthShare_UnifiedCareRecord_Insight_PatientIndex-2020.1-7015-0-lnxrhx64.tar.gz \
+--build-arg HS_KEY=ucr.key \
+--build-arg HS_SUPERSERVER_PORT=51773 \
+--build-arg HS_WEBSERVER_PORT=52773  \
+--squash -t ucr:2020.1 .
 ````
 
 else 
 
 ````sh
-docker build --build-arg HS_DIST=HealthShare_UnifiedCareRecord_Insight_PatientIndex-2020.1-7015-0-lnxrhx64.tar.gz --build-arg HS_KEY=iris.key -t ucr:2020.1 .
+docker build \
+--build-arg HS_DIST=HealthShare_UnifiedCareRecord_Insight_PatientIndex-2020.1-7015-0-lnxrhx64.tar.gz \
+--build-arg HS_KEY=ucr.key \
+--build-arg HS_SUPERSERVER_PORT=51773 \
+--build-arg HS_WEBSERVER_PORT=52773  \
+-t ucr:2020.1 .
 ````
 
 ## Build all
