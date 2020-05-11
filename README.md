@@ -20,7 +20,7 @@ docker build \
 --build-arg HS_KEY=ucr.key \
 --build-arg HS_SUPERSERVER_PORT=51773 \
 --build-arg HS_WEBSERVER_PORT=52773  \
---squash -t ucr:2020.1 .
+--squash -t docker.iscinternal.com/grongier/ucr:2020.1 .
 ````
 
 else 
@@ -31,7 +31,7 @@ docker build \
 --build-arg HS_KEY=ucr.key \
 --build-arg HS_SUPERSERVER_PORT=51773 \
 --build-arg HS_WEBSERVER_PORT=52773  \
--t ucr:2020.1 .
+-t docker.iscinternal.com/grongier/ucr:2020.1 .
 ````
 
 ## Build all
@@ -190,8 +190,7 @@ Set status=##class(HSPortal.Utils).%ResetPatientData()
 
 ````objectscript
 zn "%SYS"
-set status = ##class(%ZHSPortal.Utils).%CreatePersonalCommunityDemoNamespace("TEMPNS","MYPORTAL",,,"host.docker.internal","52773","HSREGISTRY",
-"dev@example.com","mail.example.com",,,"MYPORTAL_PIXSERVICE","MYPORTAL_PIXDEVICE","2.999.4.5.777","/tmp")
+set status = ##class(%ZHSPortal.Utils).%CreatePersonalCommunityDemoNamespace("TEMPNS","MYPORTAL",,,"host.docker.internal","52773","HSREGISTRY","dev@example.com","mail.example.com",,,"MYPORTAL_PIXSERVICE","MYPORTAL_PIXDEVICE","2.999.4.5.777","/tmp")
 write status
 ````
 
