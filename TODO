@@ -1,0 +1,8 @@
+Analytics Angular Run by default
+    http://localhost:52773/csp/healthshare/hsdashboard/HS.UI.Home.cls
+Creer les images avec les installs demo
+Données patient francais
+Traduire le clinical viewer en francais
+
+
+curl http://localhost:52773/csp/healthshare/hsods/fhir/r4/ --data-binary "@/Users/grongier/git/synthea/output/fhir/Bryant814_Breitenberg711_9c42d64b-2e0f-444d-889c-dbad29344e21.json" -H "Content-Type: application/fhir+json"
