@@ -1,0 +1,22 @@
+FROM docker.iscinternal.com/grongier/ucr:2020.1
+LABEL maintainer="Guillaume Rongier <guillaume.rongier@intersystems.com>"
+
+COPY . /tmp/src
+WORKDIR /tmp/src
+
+# Install
+# $ISC_PACKAGE_INSTANCENAME name of the iris instance on docker, defaults to IRIS, valued by InterSystems
+# First start the instance quietly in emergency mode with user sys and password sys
+RUN iris start $ISC_PACKAGE_INSTANCENAME quietly EmergencyId=sys,sys && \
+    sh install.sh $ISC_PACKAGE_INSTANCENAME sys HSLIB && \
+    /bin/echo -e "sys\nsys\n" | iris stop $ISC_PACKAGE_INSTANCENAME quietly
+
+WORKDIR /home/irisowner/
+
+# Cleanup
+USER root
+RUN rm -f $ISC_PACKAGE_INSTALLDIR/mgr/messages.log && \
+    rm -f $ISC_PACKAGE_INSTALLDIR/mgr/alerts.log && \
+    rm -f $ISC_PACKAGE_INSTALLDIR/mgr/IRIS.WIJ && \
+    rm -f $ISC_PACKAGE_INSTALLDIR/mgr/journal/* && \
+    rm -fR /tmp/src
