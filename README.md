@@ -111,6 +111,13 @@ do ##class(HS.Util.Installer.Kit.HSPI).AddHub()
 zw ##class(HS.Director).Stop()
 zw ##class(HS.Director).Start()
 ````
+
+### Uninstall UCR
+
+````objectscript
+DO ##class(HS.Util.Installer).ResetAll()
+````
+
 ### Add data
 
 #### Custom
