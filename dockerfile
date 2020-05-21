@@ -27,6 +27,7 @@ ENV ISC_PACKAGE_INSTANCENAME="IRIS"
 ENV ISC_PACKAGE_INSTALLDIR="/usr/healthshare"
 ENV ISC_PACKAGE_INITIAL_SECURITY="Normal"
 ENV ISC_PACKAGE_UNICODE="Y"
+ENV ISC_PACKAGE_STARTIRIS="Y"
 ENV ISC_PACKAGE_USER_PASSWORD="SYS"
 ENV ISC_PACKAGE_CSPSYSTEM_PASSWORD="SYS"
 ENV ISC_PACKAGE_SUPERSERVER_PORT="${HS_SUPERSERVER_PORT:-51773}"
@@ -45,13 +46,24 @@ ENV TMP_INSTALL_DIR=/distrib
 # set-up and install HealthShare from distrib_tmp dir
 RUN mkdir ${TMP_INSTALL_DIR}
 WORKDIR ${TMP_INSTALL_DIR}
+COPY imageBuildSteps.sh ${TMP_INSTALL_DIR}
 COPY distrib/${HS_DIST} ${TMP_INSTALL_DIR}
 COPY ${WEBTERMINAL_DIST} ${TMP_INSTALL_DIR}
 
 # run installer
 RUN tar xzvf ${HS_DIST} 
-RUN ./HealthShare*/irisinstall_silent
-RUN iris stop $ISC_PACKAGE_INSTANCENAME quietly 
+RUN ./HealthShare*/irisinstall_silent \
+    && cd /tmp && rm -rf /tmp/work \
+    && ln -s ${ISC_PACKAGE_INSTALLDIR}/dev/Container/changePassword.sh ${ISC_PACKAGE_INSTALLDIR}/dev/Cloud/ICM/configLicense.sh /usr/bin/ \
+    && echo ISC_PACKAGE_IRISGROUP="$ISC_PACKAGE_IRISGROUP" >> /etc/environment \
+    && echo ISC_PACKAGE_IRISUSER="$ISC_PACKAGE_IRISUSER" >> /etc/environment \
+    && echo ISC_PACKAGE_MGRGROUP="$ISC_PACKAGE_MGRGROUP" >> /etc/environment \
+    && echo ISC_PACKAGE_MGRUSER="$ISC_PACKAGE_MGRUSER" >> /etc/environment \
+    && echo ISC_PACKAGE_INSTANCENAME="$ISC_PACKAGE_INSTANCENAME" >> /etc/environment \
+    && echo ISC_PACKAGE_INSTALLDIR="$ISC_PACKAGE_INSTALLDIR" >> /etc/environment \
+    && echo IRISSYS="$IRISSYS" >> /etc/environment \
+    && sh ${TMP_INSTALL_DIR}/imageBuildSteps.sh 
+
 COPY keys/${HS_KEY} $ISC_PACKAGE_INSTALLDIR/mgr/iris.key
 
 RUN iris start $ISC_PACKAGE_INSTANCENAME \
