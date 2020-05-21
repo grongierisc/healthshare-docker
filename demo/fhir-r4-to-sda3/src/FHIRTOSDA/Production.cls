@@ -12,6 +12,7 @@ XData ProductionDefinition
     <Setting Target="Host" Name="TargetConfigName">FHIRTOSDA.File.Operation</Setting>
     <Setting Target="Host" Name="OutputToQuickStream">1</Setting>
     <Setting Target="Host" Name="FHIRMetadataSet">HL7v40 / Base HL7 Metadata for FHIR R4 (4.0.1)</Setting>
+    <Setting Target="Host" Name="TransformClass">FHIRTOSDA.Transformer</Setting>
   </Item>
   <Item Name="FHIRTOSDA.File.Service" Category="" ClassName="FHIRTOSDA.File.Service" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Host" Name="TargetConfigNames">HS.FHIR.DTL.Util.HC.FHIR.SDA3.Process</Setting>

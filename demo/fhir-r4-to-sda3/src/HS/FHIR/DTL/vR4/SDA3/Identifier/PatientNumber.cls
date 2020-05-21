@@ -60,7 +60,7 @@ XData DTL [ XMLNamespace = "http://www.intersystems.com/dtl" ]
 <assign value='##class(HS.FHIR.DTL.Util.Lookup).GetCodeForURI(source.system)' property='value' action='set' />
 <if condition='value&apos;=""' >
 <true>
-<assign value='value' property='target.ISOAssigningAuthority' action='set' >
+<assign value='$E(value,1,50)' property='target.ISOAssigningAuthority' action='set' >
 <annotation> intended to contain the entire Hierarchic Designator (HD) structure, i.e. all of PID-3.4, not just PID-3.4.1
  --- SDA3 HS.SDA3.PatientNumber:ISOAssigningAuthority is type %String and it has no MAXLEN value set, so its maximum string length is *50*.    </annotation>
 </assign>
@@ -132,17 +132,14 @@ XData DTL [ XMLNamespace = "http://www.intersystems.com/dtl" ]
 </assign>
 </true>
 </if>
-<if condition='(target.NumberType = "MRN") &amp;&amp; (target.Organization = "")' >
+<if condition='(target.NumberType = "MRN") &amp;&amp; (source.assigner="")' >
 <true>
 <assign value='##class(HS.SDA3.CodeTableDetail.Organization).%New()' property='value' action='set' />
-<assign value='aux("transformer").TransformReference("Synthea", .value, .aux)' property='value' action='set' />
-<if condition='value&apos;=""' >
-<true>
-<assign value='value' property='target.Organization' action='set' >
+<assign value='"FHIR"' property='value.Code' action='set' />
+<assign value='"From Synthea"' property='value.Description' action='set' >
 <annotation>The Assigning Authority for the number Hack for synthea datas </annotation>
 </assign>
-</true>
-</if>
+<assign value='value' property='target.Organization' action='set' />
 </true>
 </if>
 </transform>
