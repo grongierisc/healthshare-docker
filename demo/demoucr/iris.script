@@ -1,0 +1,14 @@
+SuperUser
+SYS
+
+zn "%SYS"
+zw ##Class(%SYSTEM.License).Upgrade()
+
+set $namespace="HSLIB"
+set ^%SYS("HealthShare","SSLAccess","Active")=1
+set ^%SYS("HealthShare","SSLAccess","Host")="${ISC_WEB_HOST}"
+set ^%SYS("HealthShare","SSLAccess","Port")=""
+set ^%SYS("HealthShare","SSLAccess","Prefix")="hsucr"
+do ##class(HS.Util.Installer).InstallBusDemo(,0)
+
+halt

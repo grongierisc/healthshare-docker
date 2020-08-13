@@ -1,0 +1,91 @@
+version: '3.7'
+services:
+  hsdemo:
+    image: intersystems/se:demo-webgateway
+    init: true
+    hostname: hsdemo
+    container_name: hsdemo
+    ports:
+    - "8080:80"
+    - "443:443"
+    restart: on-failure
+    volumes:
+    - ./build/kits/webgateway-dependencies/CSP.ini:/opt/webgateway/bin/CSP.ini
+
+  hsucr:
+    image: intersystems/se:demo-hsucr
+    init: true
+    command: 
+      --key /license/hsucr/iris.key 
+      --instance HSUCR
+      -a /scripts/start-all.sh
+    hostname: hsucr-demo
+    container_name: hsucr-demo
+    ports:
+    - "9091:51773" 
+    - "9092:52773"
+    restart: on-failure
+    volumes:
+    - type: bind
+      source: ./shared
+      target: /shared
+    - type: bind
+      source: ./license
+      target: /license
+    - type: bind
+      source: ./build/scripts
+      target: /scripts
+    - type: bind
+      source: ./shared/HSUCR/Data
+      target: /usr/irissys/Data
+
+  hscv:
+    image: intersystems/se:demo-hscv
+    init: true
+    command: 
+      --key /license/hsucr/iris.key 
+      --instance HSCV
+      -a /scripts/start-all.sh
+    hostname: hscv-demo
+    container_name: hscv-demo
+    ports:
+    - "9191:51773" 
+    - "9192:52773"
+    restart: on-failure
+    volumes:
+    - type: bind
+      source: ./shared
+      target: /shared
+    - type: bind
+      source: ./license
+      target: /license
+    - type: bind
+      source: ./build/scripts
+      target: /scripts
+
+  hspc:
+    image: intersystems/se:demo-hspc
+    init: true
+    command: 
+      --key /license/hspc/iris.key 
+      --instance HSPC
+      -a /scripts/start-all.sh
+    hostname: hspc-demo
+    container_name: hspc-demo
+    ports:
+    - "9291:51773"
+    - "9292:52773"
+    restart: on-failure
+    volumes:
+    - type: bind
+      source: ./shared
+      target: /shared
+    - type: bind
+      source: ./license
+      target: /license
+    - type: bind
+      source: ./build/scripts
+      target: /scripts
+    - type: bind
+      source: ./code/hspc-web
+      target: /usr/irissys/hscommunity-content/hscommunity/public
