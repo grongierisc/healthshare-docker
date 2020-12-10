@@ -1,0 +1,19 @@
+{
+    "files.associations": {
+    
+        "Dockerfile*": "dockerfile",
+        "iris.script": "objectscript"
+      },
+    "objectscript.conn" :{
+      "ns": "HSLIB",
+      "username": "SuperUser",
+      "password": "SYS",
+      "docker-compose": {
+        "file": "../docker-compose.yaml",
+        "service": "clinicalviewer",
+        "internalPort": 42773
+      },
+      "active": true
+    }
+
+}

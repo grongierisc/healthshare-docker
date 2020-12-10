@@ -16,11 +16,29 @@ If experimental is enable
 
 ````sh
 docker build \
---build-arg HS_DIST=HealthShare_UnifiedCareRecord_Insight_PatientIndex-2020.1-7015-0-lnxrhx64.tar.gz \
+--build-arg HS_DIST=HealthShare_UnifiedCareRecord_Insight_PatientIndex-2020.2-8620-0-lnxrhx64.tar.gz \
 --build-arg HS_KEY=ucr.key \
 --build-arg HS_SUPERSERVER_PORT=51773 \
 --build-arg HS_WEBSERVER_PORT=52773  \
---squash -t docker.iscinternal.com/grongier/ucr:2020.1 .
+--squash -t docker.iscinternal.com/grongier/ucr:2020.2 .
+````
+
+````sh
+docker build \
+--build-arg HS_DIST=HealthShare_ClinicalViewer-2020.2-8708-0-lnxrhx64.tar.gz \
+--build-arg HS_KEY=clinicalviewer.key \
+--build-arg HS_SUPERSERVER_PORT=41773 \
+--build-arg HS_WEBSERVER_PORT=42773  \
+--squash -t docker.iscinternal.com/grongier/clinicalviewer:2020.2 .
+````
+
+````sh
+docker build \
+--build-arg HS_DIST=HealthShare_PersonalCommunity-2020.2-7515-0-lnxrhx64.tar.gz \
+--build-arg HS_KEY=personalcommunity.key \
+--build-arg HS_SUPERSERVER_PORT=31773 \
+--build-arg HS_WEBSERVER_PORT=32773  \
+--squash -t docker.iscinternal.com/grongier/personalcommunity:2020.2 .
 ````
 
 else 

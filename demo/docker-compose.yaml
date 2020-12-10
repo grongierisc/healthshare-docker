@@ -2,13 +2,13 @@ version: "3.4"
 
 services:
   ucr:
-    image: docker.iscinternal.com/grongier/ucr:2020.1
+    image: docker.iscinternal.com/grongier/demoucr:2020.2
     container_name: ucr
     hostname: ucr
     build:
       context: ucr
     volumes:
-       - .:/tmp
+       - .:/tmp/dev
     ports:
       # Superserver
       - "51773:51773"
@@ -16,25 +16,14 @@ services:
       - "52773:52773"
       # HL7 inbound adapter
       - "62115:62115"
-  iris:
-    image: iris-fhir-to-sda:latest
-    container_name: iris
-    hostname: iris
-    build:
-      context: fhir-r4-to-sda3
-    ports:
-      - "51776:51773" # 51773 is the superserver default port
-      - "52776:52773" # 52773 is the webserver/management portal port
-    volumes:
-       - .:/tmp
   clinicalviewer:
-    image: docker.iscinternal.com/grongier/clinicalviewer:2020.1
+    image: docker.iscinternal.com/grongier/democlinicalviewer:2020.2
     container_name: clinicalviewer
     hostname: clinicalviewer
     build:
       context: clinicalviewer
     volumes:
-        - .:/tmp
+        - .:/tmp/dev
     ports:
       # Superserver
       - "41773:41773"

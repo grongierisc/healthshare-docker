@@ -1,0 +1,10 @@
+SuperUser
+SYS
+
+zn "%SYS"
+zw ##Class(%SYSTEM.License).Upgrade()
+
+set $namespace="VIEWERLIB"
+do ##class(Viewer.Util.Installer).InstallCVDemo("host.docker.internal", 52773 )
+
+halt

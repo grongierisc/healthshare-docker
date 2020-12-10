@@ -9,3 +9,7 @@ demo/fhir-r4-to-sda3/tmp/**
 misc/ccda/**
 demo/clinicalviewer/keys/clinicalviewer.key
 demo/ucr/keys/ucr.key
+demo/demoucr/license/hspc/iris.key
+demo/demoucr/license/hsucr/iris.key
+demo/ucr/key/iris.key
+demo/clinicalviewer/key/iris.key

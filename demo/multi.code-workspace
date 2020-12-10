@@ -1,0 +1,26 @@
+{
+    "folders": [
+      {
+        "name": "main",
+        "path": "."
+      },
+      {
+        "name": "Clinical Viewer",
+        "path": "clinicalviewer"
+      },{
+        "name": "UCR",
+        "path": "ucr"
+      },{
+        "uri": "isfs://CC-Backend/csp/cc_backend?csp",
+        "name": "CSP-Backend",
+      },{
+        "uri": "isfs://CC-Backend?ns=%SYS",
+        "name": "%SYS-Backend",
+      }
+    ],
+    "settings": {
+      "files.exclude": {
+        "clinicalviewer": true,
+        "ucr": true
+      },
+}
