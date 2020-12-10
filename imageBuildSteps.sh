@@ -52,6 +52,10 @@ main() {
   ObjectScript='do ##class(SYS.Container).QuiesceForBundling() halt'
   runObjectScriptSingleUser "$ObjectScript"
 
+  # Do not requirer Password change
+  ObjectScript='Do ##class(Security.Users).UnExpireUserPasswords("*") halt'
+  runObjectScriptSingleUser "$ObjectScript"
+
   # Bring the system down cleanly
   ensure_iris_stopped_single_user;
 
