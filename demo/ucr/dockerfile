@@ -1,6 +1,7 @@
 FROM docker.iscinternal.com/grongier/ucr:latest
 
 COPY iris.script /tmp/iris.script
+COPY src /tmp/scr
 
 COPY key/iris.key /usr/healthshare/mgr/iris.key
 

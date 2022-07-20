@@ -8,4 +8,7 @@ SYS
     Set ^%SYS("HealthShare","NetworkHostName")="host.docker.internal"
     do ##class(HS.Util.Installer).InstallDemo(.pOptions,0)
 
+    zn "HSANALYTICS"
+    do $System.OBJ.LoadDir("/tmp/scr","ck","*.cls",1)
+
 halt

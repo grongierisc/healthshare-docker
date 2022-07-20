@@ -23,24 +23,24 @@ services:
       - "52773"
       # HL7 inbound adapter
       - "62115:62115"
-  # clinicalviewer:
-  #   image: docker.iscinternal.com/grongier/clinicalviewer:latest
-  #   container_name: clinicalviewer
-  #   hostname: clinicalviewer
-  #   build:
-  #     context: .
-  #     args:
-  #       HS_DIST: HealthShare_ClinicalViewer-2021.2.2CV-1000-0-lnxrhx64.tar.gz
-  #       HS_KEY: clinicalviewer.key
-  #       HS_SUPERSERVER_PORT: 41773
-  #       HS_WEBSERVER_PORT: 42773
-  #   volumes:
-  #      - .:/tmp/dev
-  #   ports:
-  #     # Superserver
-  #     - "41773:41773"
-  #     # Webserver/management portal http://localhost:52773/csp/sys/%25CSP.Portal.Home.zen
-  #     - "42773:42773"
+  clinicalviewer:
+    image: docker.iscinternal.com/grongier/clinicalviewer:latest
+    container_name: clinicalviewer
+    hostname: clinicalviewer
+    build:
+      context: .
+      args:
+        HS_DIST: HealthShare_ClinicalViewer-2021.2.2CV-1000-0-lnxrhx64.tar.gz
+        HS_KEY: clinicalviewer.key
+        HS_SUPERSERVER_PORT: 41773
+        HS_WEBSERVER_PORT: 42773
+    volumes:
+       - .:/tmp/dev
+    ports:
+      # Superserver
+      - "41773:41773"
+      # Webserver/management portal http://localhost:52773/csp/sys/%25CSP.Portal.Home.zen
+      - "42773:42773"
 
   # personalcommunity:
   #   image: docker.iscinternal.com/grongier/personalcommunity:2020.2

@@ -2,7 +2,7 @@ Class Demo.Analyzer
 {
 
 /// Total of concurrent processes for some of the tasks
-Parameter Workers = 4;
+Parameter Workers = 8;
 
 /// Cases Rate Deviation to adjust numbers
 /// confession: I can't remember why I created this in the first place, but it breaks without it

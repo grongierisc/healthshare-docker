@@ -8,7 +8,7 @@ Class Demo.Importer
 
 /// - run ##class(Demo.Importer).Generate(path) for class generation and data import<br/>
 /// - run ##class(Demo.Importer).Generate(path,0) for class generation only<br/>
-ClassMethod Generate(path As %String = "/tmp/dev/shared/installer/", import As %Boolean = 1, Output sc As %Status) As %String
+ClassMethod Generate(path As %String = "/irisdev/app/shared/installer/", import As %Boolean = 1, Output sc As %Status) As %String
 {
     set sc = $$$OK
     set message = ""
