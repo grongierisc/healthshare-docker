@@ -32,8 +32,8 @@ services:
       args:
         HS_DIST: HealthShare_ClinicalViewer-2021.2.2CV-1000-0-lnxrhx64.tar.gz
         HS_KEY: clinicalviewer.key
-        HS_SUPERSERVER_PORT: 41773
-        HS_WEBSERVER_PORT: 42773
+        HS_SUPERSERVER_PORT: 51773
+        HS_WEBSERVER_PORT: 52773
     volumes:
        - .:/tmp/dev
     ports:

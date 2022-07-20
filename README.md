@@ -27,8 +27,8 @@ docker build \
 docker build \
 --build-arg HS_DIST=HealthShare_ClinicalViewer-2021.2.2CV-1000-0-lnxrhx64.tar.gz \
 --build-arg HS_KEY=clinicalviewer.key \
---build-arg HS_SUPERSERVER_PORT=41773 \
---build-arg HS_WEBSERVER_PORT=42773  \
+--build-arg HS_SUPERSERVER_PORT=51773 \
+--build-arg HS_WEBSERVER_PORT=52773  \
 --squash -t docker.iscinternal.com/grongier/clinicalviewer:latest .
 ````
 
@@ -328,3 +328,14 @@ To demonstrate this, after doing the above changes, send an email to two address
 isc.direct.demo@gmail.com and hsdemo0.direct@gmail.com.  Attach a C-CDA document.
 
 Feedback, comments and notification of errors and suggestions are welcome. 
+
+### Analytics
+
+In ucr go to HSANALYTICS :
+
+```objectscript
+zw ##class(Demo.Importer).Generate()
+zw ##class(Demo.Analyzer).RunAll(30,1,0)
+zw ##class(Demo.HSAACreator).CreateAll(30,1,0)
+```
+

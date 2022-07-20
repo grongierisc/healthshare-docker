@@ -1,11 +1,11 @@
 SuperUser
 SYS
 
-zn "%SYS"
-zw ##Class(%SYSTEM.License).Upgrade()
+    zn "%SYS"
+    zw ##Class(%SYSTEM.License).Upgrade()
 
-set $namespace="VIEWERLIB"
-Set ^%SYS("HealthShare","NetworkHostName")="host.docker.internal"
-do ##class(Viewer.Util.Installer).InstallCVDemo("host.docker.internal",52773,0)
+    set $namespace="VIEWERLIB"
+    Set ^%SYS("HealthShare","NetworkHostName")="clinicalviewer"
+    do ##class(Viewer.Util.Installer).InstallCVDemo("ucr",52773,0)
 
 halt

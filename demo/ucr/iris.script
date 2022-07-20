@@ -5,7 +5,7 @@ SYS
     zw ##Class(%SYSTEM.License).Upgrade()
 
     set $namespace="HSLIB"
-    Set ^%SYS("HealthShare","NetworkHostName")="host.docker.internal"
+    Set ^%SYS("HealthShare","NetworkHostName")="ucr"
     do ##class(HS.Util.Installer).InstallDemo(.pOptions,0)
 
     zn "HSANALYTICS"

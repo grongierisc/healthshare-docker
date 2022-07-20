@@ -16,16 +16,29 @@ services:
       - "59773:52773"
       # HL7 inbound adapter
       - "62115:62115"
-  # clinicalviewer:
-  #   image: docker.iscinternal.com/grongier/democlinicalviewer:latest
-  #   container_name: clinicalviewer
-  #   hostname: clinicalviewer
-  #   build:
-  #     context: clinicalviewer
-  #   volumes:
-  #       - .:/tmp/dev
-  #   ports:
-  #     # Superserver
-  #     - "41773:41773"
-  #     # Webserver/management portal http://localhost:52773/csp/sys/%25CSP.Portal.Home.zen
-  #     - "42773:42773"
+  clinicalviewer:
+    image: docker.iscinternal.com/grongier/democlinicalviewer:latest
+    container_name: clinicalviewer
+    hostname: clinicalviewer
+    build:
+      context: clinicalviewer
+    volumes:
+        - .:/irisdev/app
+    ports:
+      # Superserver
+      - "41773:51773"
+      # Webserver/management portal http://localhost:52773/csp/sys/%25CSP.Portal.Home.zen
+      - "42773:52773"
+  webgateway:
+    init: true
+    hostname: webgateway
+    container_name: webgateway
+    ports:
+    - "8080:80"
+    - "443:443"
+    restart: "no"
+    build:
+      context: webgateway
+    volumes:
+    - ./webgateway/CSP.ini:/opt/webgateway/bin/CSP.ini
+    - ./webgateway/CSP.conf:/etc/apache2/mods-available/CSP.conf
