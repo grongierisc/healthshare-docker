@@ -1,11 +1,11 @@
 SuperUser
 SYS
 
-zn "%SYS"
-zw ##Class(%SYSTEM.License).Upgrade()
+    zn "%SYS"
+    zw ##Class(%SYSTEM.License).Upgrade()
 
-set $namespace="HSLIB"
-Set ^%SYS("HealthShare","NetworkHostName")="host.docker.internal"
-do ##class(HS.Util.Installer).InstallDemo(.pOptions,0)
+    set $namespace="HSLIB"
+    Set ^%SYS("HealthShare","NetworkHostName")="host.docker.internal"
+    do ##class(HS.Util.Installer).InstallDemo(.pOptions,0)
 
 halt

@@ -1,14 +1,17 @@
-version: "3.4"
+version: "3.9"
 
 services:
   ucr:
-    image: docker.iscinternal.com/grongier/demoucr:2020.2
+    image: docker.iscinternal.com/grongier/demoucr:latest
     container_name: ucr
     hostname: ucr
     build:
       context: ucr
     volumes:
        - .:/tmp/dev
+       - type: bind
+        source: ./misc/docker
+        target: /usr/healthshare/Data
     ports:
       # Superserver
       - "51773:51773"
@@ -16,16 +19,16 @@ services:
       - "52773:52773"
       # HL7 inbound adapter
       - "62115:62115"
-  clinicalviewer:
-    image: docker.iscinternal.com/grongier/democlinicalviewer:2020.2
-    container_name: clinicalviewer
-    hostname: clinicalviewer
-    build:
-      context: clinicalviewer
-    volumes:
-        - .:/tmp/dev
-    ports:
-      # Superserver
-      - "41773:41773"
-      # Webserver/management portal http://localhost:52773/csp/sys/%25CSP.Portal.Home.zen
-      - "42773:42773"
+  # clinicalviewer:
+  #   image: docker.iscinternal.com/grongier/democlinicalviewer:latest
+  #   container_name: clinicalviewer
+  #   hostname: clinicalviewer
+  #   build:
+  #     context: clinicalviewer
+  #   volumes:
+  #       - .:/tmp/dev
+  #   ports:
+  #     # Superserver
+  #     - "41773:41773"
+  #     # Webserver/management portal http://localhost:52773/csp/sys/%25CSP.Portal.Home.zen
+  #     - "42773:42773"

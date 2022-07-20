@@ -2,13 +2,15 @@ version: "3.4"
 
 services:
   ucr:
-    image: docker.iscinternal.com/grongier/ucr:2020.2
+    image: docker.iscinternal.com/grongier/ucr:latest
     container_name: ucr
     hostname: ucr
+    command: 
+      --key /tmp/dev/keys/ucr.key 
     build:
       context: .
       args:
-        HS_DIST: HealthShare_UnifiedCareRecord_Insight_PatientIndex-2020.2-8620-0-lnxrhx64.tar.gz
+        HS_DIST: HealthShare_UnifiedCareRecord_Insight_PatientIndex-2021.2.1-1000-0-lnxrhx64.tar.gz
         HS_KEY: ucr.key
         HS_SUPERSERVER_PORT: 51773
         HS_WEBSERVER_PORT: 52773
@@ -16,44 +18,45 @@ services:
        - .:/tmp/dev
     ports:
       # Superserver
-      - "51773:51773"
+      - "51773"
       # Webserver/management portal http://localhost:52773/csp/sys/%25CSP.Portal.Home.zen
-      - "52773:52773"
+      - "52773"
       # HL7 inbound adapter
       - "62115:62115"
-  clinicalviewer:
-    image: docker.iscinternal.com/grongier/clinicalviewer:2020.2
-    container_name: clinicalviewer
-    hostname: clinicalviewer
-    build:
-      context: .
-      args:
-        HS_DIST: HealthShare_ClinicalViewer-2020.2-8708-0-lnxrhx64.tar.gz
-        HS_KEY: clinicalviewer.key
-        HS_SUPERSERVER_PORT: 41773
-        HS_WEBSERVER_PORT: 42773
-    volumes:
-       - .:/tmp/dev
-    ports:
-      # Superserver
-      - "41773:41773"
-      # Webserver/management portal http://localhost:52773/csp/sys/%25CSP.Portal.Home.zen
-      - "42773:42773"
-  personalcommunity:
-    image: docker.iscinternal.com/grongier/personalcommunity:2020.2
-    container_name: personalcommunity
-    hostname: personalcommunity
-    build:
-      context: .
-      args:
-        HS_DIST: HealthShare_PersonalCommunity-2020.2-7515-0-lnxrhx64.tar.gz
-        HS_KEY: personalcommunity.key
-        HS_SUPERSERVER_PORT: 31773
-        HS_WEBSERVER_PORT: 32773
-    volumes:
-        - .:/tmp/dev
-    ports:
-      # Superserver
-      - "31773:31773"
-      # Webserver/management portal http://localhost:52773/csp/sys/%25CSP.Portal.Home.zen
-      - "32773:32773"
+  # clinicalviewer:
+  #   image: docker.iscinternal.com/grongier/clinicalviewer:latest
+  #   container_name: clinicalviewer
+  #   hostname: clinicalviewer
+  #   build:
+  #     context: .
+  #     args:
+  #       HS_DIST: HealthShare_ClinicalViewer-2021.2.2CV-1000-0-lnxrhx64.tar.gz
+  #       HS_KEY: clinicalviewer.key
+  #       HS_SUPERSERVER_PORT: 41773
+  #       HS_WEBSERVER_PORT: 42773
+  #   volumes:
+  #      - .:/tmp/dev
+  #   ports:
+  #     # Superserver
+  #     - "41773:41773"
+  #     # Webserver/management portal http://localhost:52773/csp/sys/%25CSP.Portal.Home.zen
+  #     - "42773:42773"
+
+  # personalcommunity:
+  #   image: docker.iscinternal.com/grongier/personalcommunity:2020.2
+  #   container_name: personalcommunity
+  #   hostname: personalcommunity
+  #   build:
+  #     context: .
+  #     args:
+  #       HS_DIST: HealthShare_PersonalCommunity-2020.2-7515-0-lnxrhx64.tar.gz
+  #       HS_KEY: personalcommunity.key
+  #       HS_SUPERSERVER_PORT: 31773
+  #       HS_WEBSERVER_PORT: 32773
+  #   volumes:
+  #       - .:/tmp/dev
+  #   ports:
+  #     # Superserver
+  #     - "31773:31773"
+  #     # Webserver/management portal http://localhost:52773/csp/sys/%25CSP.Portal.Home.zen
+  #     - "32773:32773"

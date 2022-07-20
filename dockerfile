@@ -34,6 +34,11 @@ ENV ISC_PACKAGE_SUPERSERVER_PORT="${HS_SUPERSERVER_PORT:-51773}"
 ENV ISC_PACKAGE_WEBSERVER_PORT="${HS_WEBSERVER_PORT:-52773}"
 ENV WEBTERMINAL_DIST="WebTerminal-v4.9.3.xml"
 
+
+RUN cd /etc/yum.repos.d/
+RUN sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*
+RUN sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*
+
 # update OS + dependencies & run HealthShare silent install
 RUN yum -y update \
     && yum -y install which tar bzip2 hostname net-tools wget java \
@@ -65,10 +70,6 @@ RUN ./HealthShare*/irisinstall_silent \
     && sh ${TMP_INSTALL_DIR}/imageBuildSteps.sh 
 
 COPY keys/${HS_KEY} $ISC_PACKAGE_INSTALLDIR/mgr/iris.key
-
-RUN iris start $ISC_PACKAGE_INSTANCENAME \
-    && printf "SuperUser\n${ISC_PACKAGE_USER_PASSWORD}\n" \
-    |  iris session $ISC_PACKAGE_INSTANCENAME -U USER "##class(%SYSTEM.OBJ).Load(\"${TMP_INSTALL_DIR}/${WEBTERMINAL_DIST}\",\"cdk\")"
 
 RUN rm -rf ${TMP_INSTALL_DIR}/*
 RUN iris stop $ISC_PACKAGE_INSTANCENAME quietly

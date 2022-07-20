@@ -1,4 +1,4 @@
-FROM docker.iscinternal.com/grongier/clinicalviewer:2020.2
+FROM docker.iscinternal.com/grongier/clinicalviewer:latest
 
 COPY iris.script /tmp/iris.script
 

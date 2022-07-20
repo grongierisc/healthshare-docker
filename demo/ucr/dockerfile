@@ -1,4 +1,4 @@
-FROM docker.iscinternal.com/grongier/ucr:2020.2
+FROM docker.iscinternal.com/grongier/ucr:latest
 
 COPY iris.script /tmp/iris.script
 
