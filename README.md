@@ -335,6 +335,7 @@ In ucr go to HSANALYTICS :
 
 ```objectscript
 zw ##class(Demo.Importer).Generate()
+zw ##class(Demo.AtScale.DateFact).Populate()
 zw ##class(Demo.Analyzer).RunAll(30,1,0)
 zw ##class(Demo.HSAACreator).CreateAll(30,1,0)
 ```

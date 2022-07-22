@@ -7,4 +7,5 @@ COPY key/iris.key /usr/healthshare/mgr/iris.key
 
 # run iris and initial 
 RUN iris start $ISC_PACKAGE_INSTANCENAME \
-	&& iris session $ISC_PACKAGE_INSTANCENAME < /tmp/iris.script
+	&& iris session $ISC_PACKAGE_INSTANCENAME < /tmp/iris.script \
+	&& iris stop IRIS quietly
